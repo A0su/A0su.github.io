@@ -5,9 +5,6 @@ author: "Brandon"
 path: "/about"
 ---
 
-#### Data enthusiast with a strong background in math, science and programming. 
-
-
 Education
 ---------
 **Bachelors of Science Computer Engineering, Purdue University** (August 2018 - December 2021)
