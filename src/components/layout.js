@@ -53,10 +53,12 @@ const Layout = ({ children }) => {
         menuMoreText={menuMoreText}
       />
       <div className="content">{children}</div>
-      <Footer copyrights={copyrights} />
     </div>
   )
 }
+
+//  Put this line back in below <div className="content">{children}</div>
+//       <Footer copyrights={copyrights} /> 
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
