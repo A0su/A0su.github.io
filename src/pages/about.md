@@ -1,23 +1,49 @@
 ---
 title: "About"
-date: "2018-07-19"
-author: "Radek"
+date: "2021-05-28"
+author: "Brandon"
 path: "/about"
 ---
 
-## Hi there
+#### Data enthusiast with a strong background in math, science and programming. 
 
-My name is Radek and I'm the author of this starter. I made it to help you present your ideas easier.
 
-We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
+Education
+---------
+**Bachelors of Science Computer Engineering, Purdue University** (August 2018 - December 2021)
 
-This starter is pretty basic and covers all of the essentials. All you have to do is start typing!
+- Research in [Compiler Fuzzing](https://purs3lab.github.io/research/)
+- [Senior Design in Software Supply Chain Transparency](https://sigstore.dev/what_is_sigstore/)
+- Officer of [b01lers](https://b01lers.com/) CTF Team
 
-The starter includes:
 
-- **light/dark mode**, depending on your preferences
-- great reading experience thanks to [**Inter UI font**](https://rsms.me/inter/), made by [Rasmus Andersson](https://rsms.me/about/)
-- nice code highlighting thanks to [**PrismJS**](https://prismjs.com)
-- responsive youtube/vimeo etc. videos thanks to [**gatsby-remark-embed-video**](https://github.com/borgfriend/gatsby-remark-embed-video)
+Experience
+---------
+**Software Engineer Intern, Qualcomm** (May 2021 - August 2021, Remote)
 
-So, there you have it... enjoy!
+**Cyber Software Engineer Intern, Northrop Grumman** (May 2020 - August 2020, Springdale OH)
+
+Research
+---------
+**Checked C Compiler Fuzzing, Purdue University PurS3 Lab** (January 2021 - Present)
+
+Teaching
+---------
+**ECE 362 Microprocessor Systems and Interfacing** (Fall 2021)
+
+**ECE 270 Introduction to Digital System Design** (Spring 2021)
+
+**ECE 207 Electronic Measurement Techniques** (Fall 2020)
+
+
+Skills
+------
+**Programming:** Python, C, C++, Go
+
+**Architectures:** ARM, x86
+
+**Tools:** ANTLR, AFL, Ghidra, Git
+
+Awards
+------
+**Black Hat Student Scholarship** (2020)
