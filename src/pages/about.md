@@ -7,12 +7,15 @@ path: "/about"
 
 Education
 ---------
-**Bachelors of Science Computer Engineering, Purdue University** (August 2018 - December 2021)
+**Bachelors of Science in Computer Engineering, Purdue University** (August 2018 - December 2021)
 
 - Research in [Compiler Fuzzing](https://purs3lab.github.io/research/)
 - [Senior Design in Software Supply Chain Transparency](https://sigstore.dev/what_is_sigstore/)
 - Officer of [b01lers](https://b01lers.com/) CTF Team
-
+- Graduate coursework:
+    - **ECE 573 Compiler and Translation Systems Engineering** (Fall 2020)
+    - **ECE 570 Artificial Intelligence** (Fall 2021)
+    - **ECE 595 Applied Algorithms** (Fall 2021)
 
 Experience
 ---------
@@ -35,7 +38,7 @@ Teaching
 
 Skills
 ------
-**Programming:** Python, C, C++, Go
+**Programming:** Python, C, C++, Java, Go
 
 **Architectures:** ARM, x86
 
@@ -44,3 +47,9 @@ Skills
 Awards
 ------
 **Black Hat Student Scholarship** (2020)
+
+Hobbies
+------
+- Chess
+- Poker
+- Guitar

@@ -18,7 +18,7 @@ module.exports = {
     logoText: 'a0su',
     defaultTheme: 'dark',
     postsPerPage: 5,
-    showMenuItems: 2,
+    showMenuItems: 3,
     menuMoreText: 'Show more',
     mainMenu: [
       {
@@ -29,10 +29,10 @@ module.exports = {
         title: 'Showcase',
         path: '/showcase',
       },
-      //{
-      //  title: 'Example',
-      //  path: '/example',
-      //},
+      {
+        title: 'Music',
+        path: '/music',
+      },
     ],
   },
   plugins: [
