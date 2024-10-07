@@ -4,4 +4,5 @@ title: About
 permalink: /about/
 ---
 
-I'm currently a Software Engineer at Microsoft.
+### Currently working on
+ - Software Engineer working on Cloud Databases at Microsoft
