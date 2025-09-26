@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 min-h-screen flex flex-col items-center justify-start p-4 md:p-6">
+
+  <div class="grid gap-6 w-full max-w-5xl grid-cols-1 md:grid-cols-2 mb-6">
+    
+    <!-- Insert Date Idea Box -->
+    <div class="bg-gray-800 shadow-lg rounded-2xl p-4 md:p-6">
+      <h2 class="text-lg md:text-xl font-semibold text-white mb-4">Add a Date Idea</h2>
+      <form id="insert-form" class="space-y-6 md:space-y-4">
+        <input type="text" id="date-idea" placeholder="Date Idea" required
+          class="w-full px-4 py-3 md:py-2 border border-gray-700 rounded-xl bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 focus:outline-none" />
+        
+        <select id="date-type" required
+          class="w-full px-4 py-3 md:py-2 border border-gray-700 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-gray-500 focus:outline-none">
+          <option value="" disabled selected>Select Type</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Activity">Activity</option>
+        </select>
+        
+        <button type="submit"
+          class="w-full bg-gray-600 text-white py-3 md:py-2 rounded-xl hover:bg-gray-500 transition">
+          Save Idea
+        </button>
+      </form>
+      <p id="insert-msg" class="text-green-400 mt-2"></p>
+    </div>
+
+    <!-- Query Date Ideas Box -->
+    <div class="bg-gray-800 shadow-lg rounded-2xl p-4 md:p-6">
+      <h2 class="text-lg md:text-xl font-semibold text-white mb-4">Get a Random Date Idea</h2>
+      <form id="search-form" class="space-y-6 md:space-y-4">
+        <select id="search-category" required
+          class="w-full px-4 py-3 md:py-2 border border-gray-700 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-gray-500 focus:outline-none">
+          <option value="" disabled selected>Select Category</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Activity">Activity</option>
+        </select>
+        <button type="submit"
+          class="w-full bg-gray-600 text-white py-3 md:py-2 rounded-xl hover:bg-gray-500 transition">
+          Get Random Idea
+        </button>
+      </form>
+      <div id="results" class="mt-4 text-gray-300 text-sm md:text-base font-medium"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const AIRTABLE_API_KEY = 'YOUR_API_KEY';
+    const BASE_ID = 'YOUR_BASE_ID';
+    const TABLE_NAME = 'DateIdeas';
+
+    const insertForm = document.getElementById('insert-form');
+    const searchForm = document.getElementById('search-form');
+    const resultsDiv = document.getElementById('results');
+    const insertMsg = document.getElementById('insert-msg');
+
+    let lastSelectedIdeaId = null;
+
+    // Insert new date idea
+    insertForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const idea = document.getElementById('date-idea').value.trim();
+      const type = document.getElementById('date-type').value;
+      if (!idea || !type) return;
+
+      try {
+        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            fields: { Name: idea, Type: type, Used: false } // default Used=false
+          })
+        });
+
+        if (res.ok) {
+          insertMsg.textContent = 'Date idea saved!';
+          insertForm.reset();
+        } else {
+          insertMsg.textContent = 'Error saving idea.';
+        }
+      } catch (err) {
+        insertMsg.textContent = 'Error connecting to Airtable.';
+        console.error(err);
+      }
+      setTimeout(() => insertMsg.textContent = '', 3000);
+    });
+
+    // Get a random unused idea
+    searchForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const category = document.getElementById('search-category').value;
+      resultsDiv.textContent = 'Loading...';
+
+      try {
+        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?pageSize=100`, {
+          headers: { 'Authorization': `Bearer ${AIRTABLE_API_KEY}` }
+        });
+        const data = await res.json();
+
+        const filtered = data.records.filter(r => r.fields.Type === category && !r.fields.Used);
+        if (filtered.length === 0) {
+          resultsDiv.textContent = 'No unused ideas found in this category.';
+          lastSelectedIdeaId = null;
+        } else {
+          const randomIdea = filtered[Math.floor(Math.random() * filtered.length)];
+          lastSelectedIdeaId = randomIdea.id;
+
+          resultsDiv.innerHTML = `
+            <div>${randomIdea.fields.Name}</div>
+            <button id="mark-used" class="mt-2 bg-gray-600 text-white py-2 rounded-xl hover:bg-gray-500 transition w-full">
+              Mark as Used
+            </button>
+          `;
+
+          // Confirmation to mark as used
+          document.getElementById('mark-used').addEventListener('click', async () => {
+            if (confirm('Mark this idea as used?')) {
+              try {
+                const updateRes = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}/${lastSelectedIdeaId}`, {
+                  method: 'PATCH',
+                  headers: {
+                    'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ fields: { Used: true } })
+                });
+                resultsDiv.textContent = updateRes.ok ? 'Idea marked as used!' : 'Error updating idea.';
+              } catch (err) {
+                resultsDiv.textContent = 'Error connecting to Airtable.';
+                console.error(err);
+              }
+            }
+          });
+        }
+      } catch (err) {
+        resultsDiv.textContent = 'Error fetching data.';
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>

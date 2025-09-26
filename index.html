@@ -2,8 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandon's Personal Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #111; /* Dark background */
+      color: #eee; /* Light text */
+    }
+    a {
+      color: #4f9fff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    hr {
+      border-color: #444;
+    }
+  </style>
 </head>
-<body>
-  <h1>Hello</h1>
+<body class="min-h-screen flex flex-col items-center p-6 md:p-12 font-sans">
+
+  <div class="max-w-3xl w-full">
+    <!-- Header -->
+    <h1 class="text-3xl md:text-4xl font-bold mb-2">Hi! I'm Brandon.</h1>
+    <p class="text-gray-300 mb-4 text-lg">I'm a software engineer in systems, security, and crypto.</p>
+
+    <!-- Social links -->
+    <div class="flex flex-wrap gap-3 mb-6">
+      <a href="#" target="https://github.com/A0su" title="GitHub">🐙</a>
+      <a href="#" target="a0sugm41l@gmail.com" title="Email">✉️</a>
+      <a href="#" target="https://www.linkedin.com/in/brandondhernandez/" title="LinkedIn">💼</a>
+    </div>
+
+    <hr class="my-6">
+
+    <!-- Currently working on -->
+    <h2 class="text-2xl font-semibold mb-2">Currently working on</h2>
+    <ul class="list-disc list-inside mb-6 text-gray-300">
+      <li>Software Engineer in Azure SQL working on storage performance and XEvents</li>
+    </ul>
+
+    <!-- Other work -->
+    <h2 class="text-2xl font-semibold mb-2">Past work</h2>
+    <ul class="list-disc list-inside text-gray-300">
+      <li>A prior member of the Purdue CTF team b01lers</li>
+      <li>A past part-time researcher at Purdue's PurS3 under Dr. Aravind Machiry</li>
+      <li>A past SWE intern at Qualcomm</li>
+      <li>A past embedded intern at Northrop Grumman</li>
+    </ul>
+  </div>
+
 </body>
 </html>
