@@ -1,0 +1,9 @@
+{
+  "name": "AirtableProxy",
+  "version": "1.0.0",
+  "description": "Azure Function to proxy Airtable API requests securely.",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}

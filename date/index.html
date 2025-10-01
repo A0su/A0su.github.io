@@ -56,9 +56,10 @@
   </div>
 
   <script>
-    const AIRTABLE_API_KEY = 'YOUR_API_KEY';
-    const BASE_ID = 'YOUR_BASE_ID';
-    const TABLE_NAME = 'DateIdeas';
+  // No access token in frontend. Use Azure Function proxy endpoint instead.
+  const AZURE_FUNCTION_URL = 'YOUR_AZURE_FUNCTION_URL'; // e.g. https://<your-app>.azurewebsites.net/api/AirtableProxy
+  const BASE_ID = 'appeR7RkiQlhWjJDb';
+  const TABLE_NAME = 'DateIdeas';
 
     const insertForm = document.getElementById('insert-form');
     const searchForm = document.getElementById('search-form');
@@ -67,7 +68,7 @@
 
     let lastSelectedIdeaId = null;
 
-    // Insert new date idea
+    // Insert new date idea via Azure Function
     insertForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const idea = document.getElementById('date-idea').value.trim();
@@ -75,17 +76,15 @@
       if (!idea || !type) return;
 
       try {
-        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {
+        const res = await fetch(AZURE_FUNCTION_URL, {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            fields: { Name: idea, Type: type, Used: false } // default Used=false
+            baseId: BASE_ID,
+            tableName: TABLE_NAME,
+            data: { fields: { Name: idea, Type: type, Used: false } }
           })
         });
-
         if (res.ok) {
           insertMsg.textContent = 'Date idea saved!';
           insertForm.reset();
@@ -93,21 +92,21 @@
           insertMsg.textContent = 'Error saving idea.';
         }
       } catch (err) {
-        insertMsg.textContent = 'Error connecting to Airtable.';
+        insertMsg.textContent = 'Error connecting to backend.';
         console.error(err);
       }
       setTimeout(() => insertMsg.textContent = '', 3000);
     });
 
-    // Get a random unused idea
+    // Get a random unused idea via Azure Function
     searchForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const category = document.getElementById('search-category').value;
       resultsDiv.textContent = 'Loading...';
 
       try {
-        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?pageSize=100`, {
-          headers: { 'Authorization': `Bearer ${AIRTABLE_API_KEY}` }
+        const res = await fetch(`${AZURE_FUNCTION_URL}?baseId=${BASE_ID}&tableName=${TABLE_NAME}&queryString=pageSize%3D100`, {
+          method: 'GET'
         });
         const data = await res.json();
 
@@ -130,17 +129,14 @@
           document.getElementById('mark-used').addEventListener('click', async () => {
             if (confirm('Mark this idea as used?')) {
               try {
-                const updateRes = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}/${lastSelectedIdeaId}`, {
+                const updateRes = await fetch(`${AZURE_FUNCTION_URL}?baseId=${BASE_ID}&tableName=${TABLE_NAME}&recordId=${lastSelectedIdeaId}`, {
                   method: 'PATCH',
-                  headers: {
-                    'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({ fields: { Used: true } })
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ data: { fields: { Used: true } } })
                 });
                 resultsDiv.textContent = updateRes.ok ? 'Idea marked as used!' : 'Error updating idea.';
               } catch (err) {
-                resultsDiv.textContent = 'Error connecting to Airtable.';
+                resultsDiv.textContent = 'Error connecting to backend.';
                 console.error(err);
               }
             }
