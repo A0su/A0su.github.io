@@ -7,18 +7,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #111; /* Dark background */
-      color: #eee; /* Light text */
+      background-color: #292b2e;
+      color: #f1f2f3;
     }
     a {
-      color: #4f9fff;
+      color: #ffffff;
       text-decoration: none;
     }
     a:hover {
       text-decoration: underline;
     }
+    .reading-link-label {
+      text-decoration: underline;
+      text-decoration-color: #858b91;
+      text-underline-offset: 0.2em;
+    }
     hr {
-      border-color: #444;
+      border-color: #858b91;
+    }
+    .text-gray-300 {
+      color: #b8bdc2 !important;
     }
   </style>
 </head>
@@ -27,7 +35,7 @@
   <div class="max-w-3xl w-full">
     <!-- Header -->
     <h1 class="text-3xl md:text-4xl font-bold mb-2">Hi! I'm Brandon.</h1>
-    <p class="text-gray-300 mb-4 text-lg">I'm a software engineer interested in systems, security, and crypto.</p>
+    <p class="text-gray-300 mb-4 text-lg">I'm a software engineer interested in distributed systems, security, and high performance computing.</p>
 
     <!-- Social links -->
     <div class="flex flex-wrap gap-3 mb-6">
@@ -43,6 +51,7 @@
     <ul class="list-disc list-inside mb-6 text-gray-300">
       <li>Software Engineer in Azure SQL working on storage performance and XEvents</li>
       <li>Sporadic contributions to CPython</li>
+      <li>What I'm <a class="reading-link-label" href="readingList.html">reading</a></li>
     </ul>
 
     <!-- Other work -->

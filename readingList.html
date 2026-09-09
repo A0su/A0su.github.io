@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reading List</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --background: #292b2e;
+        --surface: #323538;
+        --text: #f1f2f3;
+        --muted: #b8bdc2;
+        --line: #858b91;
+        --link: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 8vh 1.5rem;
+        background: var(--background);
+        color: var(--text);
+        font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+        line-height: 1.7;
+      }
+
+      main {
+        width: min(100%, 58rem);
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .tree,
+      .tree ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: left;
+      }
+
+      .tree > li::before,
+      .tree ul li::before {
+        color: var(--line);
+        white-space: pre;
+      }
+
+      .tree > li::before {
+        content: "reading_list/";
+        display: block;
+        color: var(--muted);
+      }
+
+      .tree ul {
+        position: relative;
+        padding-left: 0;
+      }
+
+      .tree ul::before {
+        display: none;
+      }
+
+      .tree ul li {
+        position: relative;
+        padding-left: 8ch;
+      }
+
+      .tree ul li::before {
+        content: "└── ";
+        position: absolute;
+        left: 4ch;
+      }
+
+      .folder {
+        display: block;
+        position: relative;
+        padding-left: 4ch;
+        color: var(--muted);
+      }
+
+      .folder::before {
+        content: "├── ";
+        position: absolute;
+        left: 0;
+        color: var(--line);
+      }
+
+      .to-read {
+        margin-top: 2rem;
+        text-align: left;
+      }
+
+      .to-read h2 {
+        margin: 0 0 0.5rem;
+        color: var(--muted);
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      .to-read h3 {
+        margin: 1rem 0 0.25rem 2ch;
+        color: var(--muted);
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      .to-read h3::before {
+        content: "→ ";
+        color: var(--line);
+      }
+
+      .to-read ul {
+        margin: 0;
+        margin-left: 2ch;
+        padding-left: 2rem;
+        list-style: disc;
+      }
+
+      a {
+        color: var(--link);
+        text-decoration-color: var(--line);
+        text-underline-offset: 0.2em;
+      }
+
+      a:hover,
+      a:focus-visible {
+        color: var(--muted);
+        text-decoration-color: var(--link);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <ul class="tree">
+        <li>
+          <span class="folder">cpp/</span>
+          <ul>
+            <li><a href="https://davekilian.com/cpp-type-erasure.html">C++ 'Type Erasure' Explained</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <section class="to-read" aria-labelledby="to-read-heading">
+        <h2 id="to-read-heading">to_read/</h2>
+        <h3>high_performance_computing/</h3>
+        <ul>
+          <li><a href="https://en.algorithmica.org/hpc/">Algorithmica: High-Performance Computing</a></li>
+        </ul>
+        <h3>physics/</h3>
+        <ul>
+          <li><a href="https://theoreticalminimum.com/">Theoretical Minimum</a></li>
+        </ul>
+        <h3>cpp/</h3>
+        <ul>
+          <li><a href="https://cplusplus.com/articles/oz18T05o/">Type Erasure</a></li>
+          <li><a href="https://aherrmann.github.io/programming/2014/10/19/type-erasure-with-merged-concepts/">Type Erasure with Merged Concepts</a></li>
+          <li><a href="https://akrzemi1.wordpress.com/2013/11/18/type-erasure-part-i/">Type Erasure, Part I</a></li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
